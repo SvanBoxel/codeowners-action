@@ -11,6 +11,16 @@ Use this Action in your Actions workflow:
     echo ${{ steps.codeowners.outputs.codeowners }};
 ```
 
+If your CODEOWNERS file isn't in the root of your repository, but for instead in the `.github` directory, you can change the path by using the path parameter:
+
+```yml
+- id: codeowner
+  uses: SvanBoxel/codeowners-action@v1
+  with: 
+    path: './github/CODEOWNERS
+```
+
+
 ## Development
 
 Install the dependencies  
