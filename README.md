@@ -1,5 +1,5 @@
 # CODEOWNERS Action
-Use this action to extract your CODEOWNER file information. It parses all the information and exports it as JSON. This outputs is available via the `steps` output context. The output key is `codeowners`
+Use this action to extract your CODEOWNER file information. It parses all the information and exports it as JSON. This output is available via the `steps` output context. The output key is `codeowners`
 
 ## Usage
 Use this Action in your Actions workflow:
