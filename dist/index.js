@@ -97,7 +97,7 @@ function extractCodeOwnerInfo(path) {
             const [key, value] = cur.split(/(?<=^\S+)\s/);
             if (!key || !value)
                 return acc;
-            acc[key] = value.split(/ /);
+            acc[key] = value.split(/ /).filter(Boolean);
             return acc;
         }, {});
     });

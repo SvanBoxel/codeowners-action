@@ -22,7 +22,7 @@ async function extractCodeOwnerInfo(path: string): Promise<CodeOwnersInfo> {
   return lines.reduce((acc: CodeOwnersInfo, cur: string) => {
     const [key, value] = cur.split(/(?<=^\S+)\s/)
     if (!key || !value) return acc
-    acc[key] = value.split(/ /)
+    acc[key] = value.split(/ /).filter(Boolean)
     return acc
   }, {})
 }
