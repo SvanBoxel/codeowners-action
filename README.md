@@ -37,7 +37,7 @@ $ npm test
 
 ## Contributing
 
-If you have suggestions for how this GitHub app could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+If you have suggestions for how this GitHub Action could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
 
 ## License
 
