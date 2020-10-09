@@ -15,8 +15,8 @@ async function getFileContents(file: string): Promise<string> {
   })
 }
 
-async function extractCodeOwnerInfo(path?: string): Promise<CodeOwnersInfo> {
-  const contents = await getFileContents(path || './CODEOWNERS')
+async function extractCodeOwnerInfo(path: string): Promise<CodeOwnersInfo> {
+  const contents = await getFileContents(path)
   const lines: RegExpMatchArray | null = contents.match(codeowners_re)
   if (!lines) return {}
   return lines.reduce((acc: CodeOwnersInfo, cur: string) => {

@@ -89,7 +89,7 @@ function getFileContents(file) {
 }
 function extractCodeOwnerInfo(path) {
     return __awaiter(this, void 0, void 0, function* () {
-        const contents = yield getFileContents(path || './CODEOWNERS');
+        const contents = yield getFileContents(path);
         const lines = contents.match(codeowners_re);
         if (!lines)
             return {};
@@ -149,8 +149,8 @@ const extract_info_1 = __importDefault(__webpack_require__(103));
 function extractCodeOwnerInfo() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const path = core.getInput('path') || './CODEOWNERS';
-            const result = extract_info_1.default(path);
+            const path = core.getInput('path') || 'CODEOWNERS';
+            const result = extract_info_1.default(`${process.env.GITHUB_WORKSPACE}/${path}`);
             core.setOutput('codeowners', JSON.stringify(result));
         }
         catch (error) {
