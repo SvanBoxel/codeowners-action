@@ -1,11 +1,11 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'CODEOWNERS action'
+description: 'Extracts CODEOWNERS information'
+author: 'Sebass van Boxel'
 inputs:
-  milliseconds: # change this
-    required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+  path:
+    required: false
+    description: 'Location of codeowners file'
+    default: './CODEOWNERS'
 runs:
   using: 'node12'
   main: 'dist/index.js'

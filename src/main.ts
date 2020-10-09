@@ -1,19 +1,14 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import extractInfo from './extract-info'
 
-async function run(): Promise<void> {
+async function extractCodeOwnerInfo(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
-
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const path: string = core.getInput('path') || './CODEOWNERS'
+    const result = extractInfo(path)
+    core.setOutput('codeowners', JSON.stringify(result))
   } catch (error) {
     core.setFailed(error.message)
   }
 }
 
-run()
+extractCodeOwnerInfo()
