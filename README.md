@@ -17,7 +17,7 @@ If your CODEOWNERS file isn't in the root of your repository, but for instead in
 - id: codeowner
   uses: SvanBoxel/codeowners-action@v1
   with: 
-    path: './github/CODEOWNERS
+    path: './github/CODEOWNERS'
 ```
 
 
