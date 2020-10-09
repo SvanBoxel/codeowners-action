@@ -5,7 +5,7 @@ inputs:
   path:
     required: false
     description: 'Location of codeowners file'
-    default: 'CODEOWNERS'
+    default: './CODEOWNERS'
 runs:
   using: 'node12'
   main: 'dist/index.js'

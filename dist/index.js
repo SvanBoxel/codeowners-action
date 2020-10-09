@@ -144,13 +144,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const path_1 = __importDefault(__webpack_require__(622));
 const core = __importStar(__webpack_require__(186));
 const extract_info_1 = __importDefault(__webpack_require__(103));
 function extractCodeOwnerInfo() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const path = core.getInput('path') || 'CODEOWNERS';
-            const result = extract_info_1.default(`${process.env.GITHUB_WORKSPACE}/${path}`);
+            const filePath = path_1.default.join(process.env.GITHUB_WORKSPACE || './', core.getInput('path') || './CODEOWNERS');
+            const result = yield extract_info_1.default(filePath);
             core.setOutput('codeowners', JSON.stringify(result));
         }
         catch (error) {
