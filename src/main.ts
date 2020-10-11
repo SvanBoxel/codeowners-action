@@ -1,18 +1,35 @@
 import path from 'path'
 import * as core from '@actions/core'
-import extractInfo from './extract-info'
+import extractCodeOwners from './extract-codeowners'
+import extractFileMatches from './extract-filematches'
+import {getVersionControlledFiles} from './utils'
 
-async function extractCodeOwnerInfo(): Promise<void> {
+async function extractCodeOwnerInfo(
+  codeownerPath: string,
+  fileMatchInfo: boolean
+): Promise<void> {
   try {
     const filePath: string = path.join(
       process.env.GITHUB_WORKSPACE || './',
-      core.getInput('path') || './CODEOWNERS'
+      codeownerPath
     )
-    const result = await extractInfo(filePath)
-    core.setOutput('codeowners', JSON.stringify(result))
+    const codeownerInfo = await extractCodeOwners(filePath)
+    core.setOutput('codeowners', JSON.stringify(codeownerInfo))
+
+    if (fileMatchInfo) {
+      const versionControlledFiles = await getVersionControlledFiles()
+      const fileMatches = extractFileMatches(
+        versionControlledFiles,
+        codeownerInfo
+      )
+      core.setOutput('filematches', JSON.stringify(fileMatches))
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
 }
 
-extractCodeOwnerInfo()
+const codeownerPath = core.getInput('path') || './CODEOWNERS'
+const fileMatchInfo = core.getInput('file_match_info').toLowerCase() === 'true'
+
+extractCodeOwnerInfo(codeownerPath, fileMatchInfo)

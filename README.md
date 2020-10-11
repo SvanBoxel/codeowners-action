@@ -1,8 +1,11 @@
 # CODEOWNERS Action
-Use this action to extract your CODEOWNER file information. It parses all the information and exports it as JSON. This output is available via the `steps` output context. The output key is `codeowners`
+Use this action to extract your CODEOWNER file information and check how individual files match CODEOWNER rules. It parses all the information and exports it as JSON. This output is available via the `steps` output context. 
 
 ## Usage
-Use this Action in your Actions workflow:
+This Actions outputs CODEOWNER file information, and optionally how individual files match specific rules.
+
+### Basic mode 
+In basic mode (default) it will only extract the information that can be found in the CODEOWNERS file and returns this information as an object. Use this Action in basic mode in your Actions workflow as follows:
 
 ```yml
 - id: codeowner
@@ -11,6 +14,44 @@ Use this Action in your Actions workflow:
     echo ${{ steps.codeowners.outputs.codeowners }};
 ```
 
+Example `codeowners` object:
+```json
+{
+  "dist/index.js": ["@foo-bot"],
+  "lib/*": ["@hubot"],
+  "src/main.ts": ["@hubot", "@svanboxel", "@foo-bot"]
+}
+```
+
+### File match option
+When enabled, this Action checks how every file in your repository matches a specific CODEOWNER rule. The order of the CODEOWNERS rules defines (last matching pattern takes the most precedence), which rule matches which file.
+
+```yml
+- id: codeowner
+  uses: SvanBoxel/codeowners-action@v1
+  with: 
+    file_match_info: 'true'
+```
+
+This will output the following (example) JSON format to the `filematches` output variable:
+
+```json
+{
+  "./bar/foo.cp": { 
+    "rule_match": "*", 
+    "owners": [ "@test" ] 
+  },
+  "./lib/foo/bar.whop": { 
+    "rule_match": "lib/foo/", 
+    "owners": [ "@not-hubot" ] 
+  },
+  "./src/main.ts": { 
+    "rule_match": "src/main.ts",
+    "owners": [ "@hubot", "@svanboxel", "@foo-bot" ] 
+  } 
+}
+```
+### Custom path
 If your CODEOWNERS file isn't in the root of your repository, but for instead in the `.github` directory, you can change the path by using the path parameter:
 
 ```yml

@@ -6,9 +6,15 @@ inputs:
     required: false
     description: 'Location of codeowners file'
     default: './CODEOWNERS'
+  file_match_info:
+    required: false
+    description: Output how version controlled files match CODEOWNERS rules
+    default: 'false'
 output: 
   codeowners:
-    description: "JSON string containing all CODEOWNER information"
+    description: "JSON string containing all CODEOWNERS information"
+  filematches:
+    description: "JSON string contain how files match CODEOWNERS rules"
 runs:
   using: 'node12'
   main: 'dist/index.js'
