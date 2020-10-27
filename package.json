@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
-    "@types/node": "^14.14.3",
+    "@types/node": "^14.14.5",
     "@typescript-eslint/parser": "^4.6.0",
     "@vercel/ncc": "^0.24.1",
-    "eslint": "^7.12.0",
+    "eslint": "^7.12.1",
     "eslint-plugin-github": "^4.1.1",
     "eslint-plugin-jest": "^24.1.0",
     "ignore": "5.1.8",
@@ -41,6 +41,6 @@
     "js-yaml": "^3.14.0",
     "prettier": "2.1.2",
     "ts-jest": "^24.3.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.5"
   }
 }
