@@ -94,21 +94,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const path_1 = __importDefault(__webpack_require__(622));
+const fs_1 = __importDefault(__webpack_require__(747));
 const core = __importStar(__webpack_require__(186));
 const extract_codeowners_1 = __importDefault(__webpack_require__(650));
 const extract_filematches_1 = __importDefault(__webpack_require__(715));
 const utils_1 = __webpack_require__(918);
+const filepath = './codeowner-information.json';
 function extractCodeOwnerInfo(codeownerPath, fileMatchInfo) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            let results = {};
             const filePath = path_1.default.join(process.env.GITHUB_WORKSPACE || './', codeownerPath);
             const codeownerInfo = yield extract_codeowners_1.default(filePath);
             core.setOutput('codeowners', JSON.stringify(codeownerInfo));
+            results = { codeownerInfo };
             if (fileMatchInfo) {
                 const versionControlledFiles = yield utils_1.getVersionControlledFiles();
                 const fileMatches = extract_filematches_1.default(versionControlledFiles, codeownerInfo);
                 core.setOutput('filematches', JSON.stringify(fileMatches));
+                results = { codeownerInfo, fileMatches };
             }
+            fs_1.default.writeFile(filepath, JSON.stringify(results), err => {
+                if (err)
+                    core.warning(`error writing results to file: ${err}. Action output is still available`);
+            });
         }
         catch (error) {
             core.setFailed(error.message);
