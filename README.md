@@ -51,6 +51,26 @@ This will output the following (example) JSON format to the `filematches` output
   } 
 }
 ```
+
+In the situation you want consume the above results directly from a file you can read `./codeowner-information.json` from the root of the repository. The format of this file follows the following format:
+
+```json
+{
+  "codeownerInfo": {
+    "dist/index.js": ["@foo-bot"],
+    ...
+  },
+  "fileMatches": {
+    "./bar/foo.cp": { 
+      "rule_match": "*", 
+      "owners": [ "@test" ] 
+    },
+    ...
+  }
+}
+
+
+```
 ### Custom path
 If your CODEOWNERS file isn't in the root of your repository, but for instead in the `.github` directory, you can change the path by using the path parameter:
 
