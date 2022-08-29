@@ -1,3 +1,5 @@
 dist/index.js @foo-bot
 lib/* @hubot
-src/main.ts @hubot @svanboxel @foo-bot
+
+# extra rule
+src/main.ts     @hubot   @svanboxel @foo-bot
