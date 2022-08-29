@@ -68,9 +68,40 @@ In the situation you want consume the above results directly from a file you can
     ...
   }
 }
-
-
 ```
+
+#### Include non-owned files
+By default, files without an owner will be ignored. Add the `include_no_owners` option to include them in the report
+
+```yml
+- id: codeowner
+  uses: SvanBoxel/codeowners-action@v1
+  with: 
+    file_match_info: 'true'
+    include_no_owners: 'true'
+```
+
+Will produce
+```json
+{
+  "codeownerInfo": {
+    "dist/index.js": ["@foo-bot"],
+    ...
+  },
+  "fileMatches": {
+    "./bar/foo.cp": { 
+      "rule_match": "*", 
+      "owners": [ "@test" ] 
+    },
+    "./orphan-file.txt": {
+      "rule_match": null,
+      "owners": [ ]
+    },
+    ...
+  }
+}
+```
+
 ### Custom path
 If your CODEOWNERS file isn't in the root of your repository, but for instead in the `.github` directory, you can change the path by using the path parameter:
 
