@@ -10,7 +10,11 @@ inputs:
     required: false
     description: Output how version controlled files match CODEOWNERS rules
     default: 'false'
-output: 
+  include_no_owners:
+    required: false
+    description: If files without owners should be included or not
+    default: 'false'
+output:
   codeowners:
     description: "JSON string containing all CODEOWNERS information"
   filematches:

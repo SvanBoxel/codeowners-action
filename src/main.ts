@@ -9,7 +9,8 @@ const filepath = './codeowner-information.json'
 
 async function extractCodeOwnerInfo(
   codeownerPath: string,
-  fileMatchInfo: boolean
+  fileMatchInfo: boolean,
+  includeNoOwners: boolean
 ): Promise<void> {
   try {
     let results = {}
@@ -25,7 +26,8 @@ async function extractCodeOwnerInfo(
       const versionControlledFiles = await getVersionControlledFiles()
       const fileMatches = extractFileMatches(
         versionControlledFiles,
-        codeownerInfo
+        codeownerInfo,
+        includeNoOwners
       )
 
       core.setOutput('filematches', JSON.stringify(fileMatches))
@@ -44,6 +46,7 @@ async function extractCodeOwnerInfo(
 }
 
 const codeownerPath = core.getInput('path') || './CODEOWNERS'
-const fileMatchInfo = core.getInput('file_match_info').toLowerCase() === 'true'
+const fileMatchInfo = core.getBooleanInput('file_match_info')
+const includeNoOwners = core.getBooleanInput('include_no_owners')
 
-extractCodeOwnerInfo(codeownerPath, fileMatchInfo)
+extractCodeOwnerInfo(codeownerPath, fileMatchInfo, includeNoOwners)
