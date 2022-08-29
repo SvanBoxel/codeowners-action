@@ -45,7 +45,9 @@ test('should give most precedence to last matching pattern', async () => {
     'lib/foo/': ['@not-hubot']
   }
 
-  expect(await extractFileMatches(files, codeOwnersInfoTwo, false)).toMatchObject({
+  expect(
+    await extractFileMatches(files, codeOwnersInfoTwo, false)
+  ).toMatchObject({
     './bar/foo.cp': {
       rule_match: '*',
       owners: ['@test']
