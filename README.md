@@ -8,7 +8,7 @@ This Actions outputs CODEOWNER file information, and optionally how individual f
 In basic mode (default) it will only extract the information that can be found in the CODEOWNERS file and returns this information as an object. Use this Action in basic mode in your Actions workflow as follows:
 
 ```yml
-- id: codeowner
+- id: codeowners
   uses: SvanBoxel/codeowners-action@v1
 - run: |
     echo ${{ steps.codeowners.outputs.codeowners }};
