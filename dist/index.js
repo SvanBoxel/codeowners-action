@@ -169,7 +169,7 @@ const listVersionControlledFilesCommand = 'git ls-tree HEAD -r --name-only';
 function getVersionControlledFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
-            child_process_1.exec(listVersionControlledFilesCommand, (err, stdout, stderr) => {
+            child_process_1.exec(listVersionControlledFilesCommand, { maxBuffer: 1024 * 10000 }, (err, stdout, stderr) => {
                 if (err != null)
                     reject(err);
                 if (typeof stderr != 'string')
