@@ -20,7 +20,7 @@ output:
   filematches:
     description: "JSON string contain how files match CODEOWNERS rules"
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
 
 branding:
