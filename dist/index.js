@@ -165,16 +165,23 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getFileContents = exports.getVersionControlledFiles = void 0;
 const child_process_1 = __nccwpck_require__(129);
 const fs_1 = __importDefault(__nccwpck_require__(747));
-const listVersionControlledFilesCommand = 'git ls-tree HEAD -r --name-only';
 function getVersionControlledFiles() {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
-            child_process_1.exec(listVersionControlledFilesCommand, { maxBuffer: 1024 * 10000 }, (err, stdout, stderr) => {
-                if (err != null)
-                    reject(err);
-                if (typeof stderr != 'string')
-                    reject(stderr);
+            const listVersionControlledFilesCommand = child_process_1.spawn('git', [
+                'ls-tree',
+                'HEAD',
+                '-r',
+                '--name-only'
+            ]);
+            listVersionControlledFilesCommand.stdout.on('data', (data) => {
+                const stdout = data.toString();
                 resolve(stdout.split(/\r?\n/).filter(Boolean));
+            });
+            listVersionControlledFilesCommand.stderr.on('data', (data) => {
+                if (data != null)
+                    reject(data);
+                reject(new Error('Unknown error.'));
             });
         });
     });
